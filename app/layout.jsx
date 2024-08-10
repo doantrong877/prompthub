@@ -1,7 +1,7 @@
 import '@styles/globals.css';
 import Nav from '@components/Nav'
 import Provider from '@components/Provider'
-
+import { ReactNode, Suspense } from "react";
 export const metafata = {
     title: "PromptHub",
     description: 'Discover & Share AI Prompts'
@@ -17,7 +17,10 @@ const RootLayout = ({children}) => {
             </div>
             <main className='app'>
                 <Nav/>
-                {children}
+
+                <Suspense fallback={null}>
+            {children}
+        </Suspense>
             </main>
             </Provider>
             
