@@ -18,9 +18,9 @@ const Nav = () => {
 
   return (
     <nav className='flex-between w-full mb-16 pt-3'>
-      <Link href="/" className='flex gap-2 flex-center'>
-        <Image src="/assets/images/logo.svg" alt="PromptHub" width={30} height={30} className='object-contain'/>
-        <p className='logo_text'>PromptHub</p>
+      <Link href="/" className='flex gap-4 flex-center '>
+        <Image src="/assets/images/PromptHub.jpg" alt="PromptHub" width={130} height={10} className='object-contain rounded-full'/>
+        {/* <p className='logo_text'>PromptHub</p> */}
       </Link>
 
       {/* Desktop Navigation */}
