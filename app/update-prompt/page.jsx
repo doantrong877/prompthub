@@ -2,11 +2,12 @@
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Form from '@components/Form';
-import { Suspense } from 'react';
 
 const EditPrompt = () => {
     const router = useRouter();
     const [submitting, setSubmitting] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const searchParams = useSearchParams();
     const promptId = searchParams.get('id');
     const [post, setPost] = useState({
@@ -16,16 +17,29 @@ const EditPrompt = () => {
 
     useEffect(() => {
         const getPromptDetails = async () => {
-            const response = await fetch(`/api/prompt/${promptId}`);
-            const data = await response.json();
+            setLoading(true);
+            setError(null);
 
-            setPost({
-                prompt: data.prompt,
-                tag: data.tag,
-            });
+            try {
+                const response = await fetch(`/api/prompt/${promptId}`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch prompt details');
+                }
+                const data = await response.json();
+                setPost({
+                    prompt: data.prompt,
+                    tag: data.tag,
+                });
+            } catch (err) {
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
         };
 
-        if (promptId) getPromptDetails();
+        if (promptId) {
+            getPromptDetails();
+        }
     }, [promptId]);
 
     const updatePrompt = async (e) => {
@@ -48,24 +62,28 @@ const EditPrompt = () => {
 
             if (response.ok) {
                 router.push('/profile');
+            } else {
+                throw new Error('Failed to update prompt');
             }
         } catch (error) {
             console.log(error);
+            alert('Failed to update prompt');
         } finally {
             setSubmitting(false);
         }
     };
 
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div>Error: {error}</div>;
+
     return (
-        <Suspense fallback={<div>Loading...</div>}>
-            <Form
-                type="Edit"
-                post={post}
-                setPost={setPost}
-                submitting={submitting}
-                handleSubmit={updatePrompt}
-            />
-        </Suspense>
+        <Form
+            type="Edit"
+            post={post}
+            setPost={setPost}
+            submitting={submitting}
+            handleSubmit={updatePrompt}
+        />
     );
 };
 
