@@ -57,14 +57,16 @@
 import { useState, useEffect } from "react";
 import PromptCard from './PromptCard';
 
-const PromptCardList = ({ data, handleTagClick }) => {
+const PromptCardList = ({ data, handleTagClick, setSearchText,fetchPosts, }) => {
   return (
     <div className="mt-16 prompt_layout">
       {data.map((post) => (
         <PromptCard
           key={post._id}
           post={post}
+          fetchPosts={fetchPosts}
           handleTagClick={handleTagClick}
+          setSearchText={setSearchText}
         />
       ))}
     </div>
@@ -105,7 +107,12 @@ const Feed = () => {
       </form>
       <PromptCardList 
         data={posts} 
-        handleTagClick={() => {}}
+        handleTagClick={(tag) => {
+          setSearchText(tag); // Set search text to the clicked tag
+          fetchPosts(tag); // Fetch posts related to the clicked tag
+        }}
+        fetchPosts={fetchPosts}
+        setSearchText={setSearchText}
       />
     </section>
   )
