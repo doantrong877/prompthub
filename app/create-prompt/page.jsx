@@ -16,26 +16,30 @@ const CreatePrompt = () => {
         e.preventDefault();
         setSubmitting(true);
         try {
-            const response = await fetch('/api/prompt/new',
-                {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        prompt: post.prompt,
-                        userId: session?.user.id,
-                        tag: post.tag, 
-                    })
-                }
-            )
-            if(response.ok){
-                router.push('/')
+            const response = await fetch('/api/prompt/new', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json', // Ensure content type is set
+                },
+                body: JSON.stringify({
+                    prompt: post.prompt,
+                    userId: session?.user.id,
+                    tag: post.tag,
+                    upvotes: 0, // Explicitly pass upvotes as 0
+                }),
+            });
+    
+            if (response.ok) {
+                router.push('/');
+            } else {
+                console.error('Failed to create prompt:', await response.text()); // Log response for debugging
             }
         } catch (error) {
             console.log(error);
-            
         } finally {
             setSubmitting(false);
         }
-    }
+    };
   return (
     <Form
         type="Create"

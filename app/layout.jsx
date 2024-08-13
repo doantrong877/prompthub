@@ -4,7 +4,7 @@ import Provider from '@components/Provider'
 import { ReactNode, Suspense } from "react";
 export const metafata = {
     title: "PromptHub",
-    description: 'Discover & Share AI Prompts'
+    description: 'Unveil and Disseminate Machine Learning Ideas'
 }
 
 const RootLayout = ({children}) => {
