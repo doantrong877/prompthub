@@ -7,7 +7,7 @@ import {
 } from "@google/generative-ai";
 import { useState } from "react";
 
-const MODEL_NAME = "gemini-1.0-pro";
+const MODEL_NAME = "gemini-1.5-flash";
 const API_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
 
 export default function Home() {
