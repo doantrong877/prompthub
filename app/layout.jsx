@@ -2,9 +2,9 @@ import '@styles/globals.css';
 import Nav from '@components/Nav'
 import Provider from '@components/Provider'
 import { ReactNode, Suspense } from "react";
-export const metafata = {
+export const metadata = {
     title: "PromptHub",
-    description: 'Unveil and Disseminate Machine Learning Ideas'
+    description: 'Unveil and Disseminate Machine Learning Ideas',
 }
 
 const RootLayout = ({children}) => {
