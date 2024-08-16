@@ -74,7 +74,7 @@ export default function Home() {
       <form onSubmit={onSubmit} className="relative w-full flex-center">
         <input
           type="text"
-          placeholder="Enter your prompt here"
+          placeholder="Ask Gemini"
           name="prompt"
           className="border-none outline-none p-4 rounded-lg text-black"
         />{" "}
